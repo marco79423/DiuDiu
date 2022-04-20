@@ -1,10 +1,10 @@
 import React from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {makeStyles} from '@material-ui/core'
 import {Canvas} from '@react-three/fiber'
 import {OrbitControls, PerspectiveCamera} from '@react-three/drei'
 import {Physics} from '@react-three/cannon'
 import {generateId} from '@paji-sdk/utils'
+import {createUseStyles} from 'react-jss'
 
 import {selectObjectList} from '../selectors'
 import useDeveloperMode from '../hooks/useDeveloperMode'
@@ -15,7 +15,8 @@ import Barrier from '../components/object-box/Barrier'
 import Object from '../components/object-box/Object'
 import objectSlice from '../slices/object'
 
-const useStyles = makeStyles({
+
+const useStyles = createUseStyles({
   root: {
     width: '100%',
     height: '100%',
@@ -46,7 +47,7 @@ export default function RollingObjectBox() {
       id: generateId(),
       rolling: false,
       defaultPosition: [Math.random() * 10 - 10 / 2, -5, 5],
-      defaultVelocity: [Math.random() * 2 - 1, -Math.random() * 2 , Math.random() * 2 - 1],
+      defaultVelocity: [Math.random() * 2 - 1, -Math.random() * 2, Math.random() * 2 - 1],
     }))
   }
 

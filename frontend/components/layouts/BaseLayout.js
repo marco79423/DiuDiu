@@ -1,11 +1,11 @@
 import React from 'react'
-import {makeStyles} from '@material-ui/core'
+import {createUseStyles} from 'react-jss'
 
 import useWindowSize from '../../hooks/useWindowSize'
 import Header from '../base/Header'
 
 
-const useStyles = makeStyles({
+const useStyles = createUseStyles({
   root: ({width, height}) => ({
     minWidth: width,
     minHeight: height,

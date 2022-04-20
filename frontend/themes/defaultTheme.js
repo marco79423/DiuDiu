@@ -1,5 +1,5 @@
-import {createTheme} from '@material-ui/core'
-import {indigo, deepPurple} from '@material-ui/core/colors'
+import {createTheme} from '@mui/material'
+import {indigo, deepPurple} from '@mui/material/colors'
 
 const theme = createTheme({
   palette: {

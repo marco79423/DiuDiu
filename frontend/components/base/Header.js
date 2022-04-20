@@ -1,8 +1,10 @@
 import React from 'react'
-import {AppBar, makeStyles, Toolbar, Typography} from '@material-ui/core'
-import CasinoIcon from '@material-ui/icons/Casino'
+import {AppBar, Toolbar, Typography} from '@mui/material'
+import {createUseStyles} from 'react-jss'
+import CasinoIcon from '@mui/icons-material/casino'
 
-const useStyles = makeStyles({
+
+const useStyles = createUseStyles({
   icon: {
     fontSize: '2rem',
     marginRight: 16,

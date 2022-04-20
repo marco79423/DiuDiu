@@ -2,9 +2,14 @@ import React from 'react'
 import getConfig from 'next/config'
 import Head from 'next/head'
 import {appWithTranslation, useTranslation} from 'next-i18next'
-import {CssBaseline} from '@material-ui/core'
+import {CssBaseline} from '@mui/material'
 
 import AppProvider from '../containers/AppProvider'
+import createEmotionCache from '../utils/createEmotionCache'
+import {CacheProvider} from '@emotion/react'
+
+// Client-side cache, shared for the whole session of the user in the browser.
+const emotionCache = createEmotionCache()
 
 function App({Component, pageProps}) {
   const {publicRuntimeConfig} = getConfig()
@@ -57,9 +62,11 @@ function App({Component, pageProps}) {
 
       <CssBaseline/>
 
-      <AppProvider>
-        <Component {...pageProps} />
-      </AppProvider>
+      <CacheProvider value={emotionCache}>
+        <AppProvider>
+          <Component {...pageProps} />
+        </AppProvider>
+      </CacheProvider>
     </>
   )
 }
