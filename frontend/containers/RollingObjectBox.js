@@ -46,8 +46,8 @@ export default function RollingObjectBox() {
     dispatch(objectSlice.actions.addOne({
       id: generateId(),
       rolling: false,
-      defaultPosition: [Math.random() * 10 - 10 / 2, -5, 5],
-      defaultVelocity: [Math.random() * 2 - 1, -Math.random() * 2, Math.random() * 2 - 1],
+      defaultPosition: [0, -5, 5],
+      defaultVelocity: [Math.random() * 10 - 5, -Math.random() * 5, Math.random() * 10 - 5],
     }))
   }
 
@@ -58,16 +58,14 @@ export default function RollingObjectBox() {
     }))
   }
 
-  React.useEffect(() => {
+  const onBoxClick = () => {
     if (ready) {
-      if (objectList.length === 0) {
-        addObject()
-      }
+      addObject()
     }
-  }, [ready])
+  }
 
   return (
-    <div ref={ref} className={classes.root}>
+    <div ref={ref} className={classes.root} onClick={onBoxClick}>
       {
         (isClientSideRendering && ready) ? (
           <Canvas className={classes.canvas}>
@@ -81,9 +79,9 @@ export default function RollingObjectBox() {
               <ambientLight color={0xf0f5fb}/>
               <spotLight
                 color={0xefdfd5}
-                intensity={20}
-                position={[-5, -5, 5]}
-                distance={5}
+                intensity={1}
+                position={[0, 0, 15]}
+                distance={20}
                 castShadow={true}
               />
 
