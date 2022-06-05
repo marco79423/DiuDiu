@@ -18,7 +18,7 @@
     "@mui/material": "^5.8.2",
     "@paji-sdk/next-lib": "^3.1.0-alpha.0",
     "@paji-sdk/utils": "^3.0.1",
-    "@paji-sdk/web": "^3.0.1",
+    "@paji-sdk/web": "^3.1.0",
     "@react-three/cannon": "^5.1.0",
     "@react-three/drei": "^8.20.2",
     "@react-three/fiber": "^7.0.26",

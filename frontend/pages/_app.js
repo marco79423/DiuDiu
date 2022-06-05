@@ -4,21 +4,21 @@ import getConfig from 'next/config'
 import {useRouter} from 'next/router'
 import {CacheProvider} from '@emotion/react'
 import {appWithTranslation, useTranslation} from 'next-i18next'
+import {useGATracker} from '@paji-sdk/web'
 import {useCanonicalUrl} from '@paji-sdk/next-lib'
 import {StyledEngineProvider} from '@mui/material'
 
 import AppProvider from '../containers/AppProvider'
 import createEmotionCache from '../utils/createEmotionCache'
-import useTracker from '../hooks/useTracker'
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
 function App({Component, emotionCache = clientSideEmotionCache, pageProps}) {
-  const tracker = useTracker()
-  const router = useRouter()
   const {publicRuntimeConfig} = getConfig()
+  const router = useRouter()
+  const tracker = useGATracker(publicRuntimeConfig.gaTrackingCode)
   const canonicalUrl = useCanonicalUrl(publicRuntimeConfig.hostUrl)
   const {t} = useTranslation()
 
