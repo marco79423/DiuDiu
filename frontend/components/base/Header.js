@@ -1,7 +1,7 @@
 import React from 'react'
 import {AppBar, Grid, Toolbar, Typography} from '@mui/material'
 import {createUseStyles} from 'react-jss'
-import CasinoIcon from '@mui/icons-material/casino'
+import CasinoIcon from '@mui/icons-material/Casino'
 import {useTranslation} from 'next-i18next'
 
 
