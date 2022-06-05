@@ -1,9 +1,9 @@
 import React from 'react'
 import {createUseStyles} from 'react-jss'
-
-import useWindowSize from '../../hooks/useWindowSize'
-import Header from '../base/Header'
+import {useViewportSize} from '@paji-sdk/web'
 import {Fab} from '@mui/material'
+
+import Header from '../base/Header'
 
 
 const useStyles = createUseStyles({
@@ -33,7 +33,7 @@ const useStyles = createUseStyles({
 })
 
 export default function RollingDieLayout({children, onStatsDialogOpen}) {
-  const {width, height} = useWindowSize()
+  const {width, height} = useViewportSize()
   const classes = useStyles({width, height})
 
   return (
