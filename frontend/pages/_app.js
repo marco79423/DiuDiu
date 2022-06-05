@@ -54,18 +54,18 @@ function App({Component, emotionCache = clientSideEmotionCache, pageProps}) {
         <title>{t('DiuDiu')}</title>
 
         <meta name="application-name" content={t('DiuDiu')}/>
-        <meta name="description" content={t('DiuDiu is DiuDiu game')}/>
-        <meta name="keywords" content="diudiu"/>
+        <meta name="description" content={t('DiuDiu is DiuDiu DiuDiu')}/>
+        <meta name="keywords" content={t('diudiu,game')}/>
 
         <meta name="twitter:card" content="summary"/>
         <meta name="twitter:url" content={canonicalUrl}/>
         <meta name="twitter:title" content={t('DiuDiu')}/>
-        <meta name="twitter:description" content={t('')}/>
+        <meta name="twitter:description" content={t('DiuDiu is DiuDiu DiuDiu')}/>
         <meta name="twitter:image" content={`${canonicalUrl}/logo.jpg`}/>
         <meta name="twitter:creator" content="@marco79423"/>
         <meta property="og:type" content="website"/>
         <meta property="og:title" content={t('DiuDiu')}/>
-        <meta property="og:description" content={t('')}/>
+        <meta property="og:description" content={t('DiuDiu is DiuDiu DiuDiu')}/>
         <meta property="og:site_name" content={t('DiuDiu')}/>
         <meta property="og:url" content={canonicalUrl}/>
         <meta property="og:image" content={`${canonicalUrl}/logo.jpg`}/>
