@@ -1,9 +1,9 @@
 import React from 'react'
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
-import {StyledEngineProvider} from '@mui/material/styles'
 
 import RollingDieLayout from '../components/layouts/RollingDieLayout'
 import RollingObjectBox from '../containers/RollingObjectBox'
+import StatsDialogContainer from '../containers/StatsDialogContainer'
 
 export const getStaticProps = async ({locale}) => ({
   props: {
@@ -12,11 +12,23 @@ export const getStaticProps = async ({locale}) => ({
 })
 
 export default function RollingDiePage() {
+  const [statsDialogOpen, setStatsDialogOpen] = React.useState(false)
+
+  const onStatsDialogOpen = () => {
+    setStatsDialogOpen(true)
+  }
+
+  const onStatsDialogClose = () => {
+    setStatsDialogOpen(false)
+  }
+
   return (
-    <StyledEngineProvider injectFirst>
-      <RollingDieLayout>
+    <>
+      <RollingDieLayout onStatsDialogOpen={onStatsDialogOpen}>
         <RollingObjectBox/>
       </RollingDieLayout>
-    </StyledEngineProvider>
+
+      <StatsDialogContainer open={statsDialogOpen} onClose={onStatsDialogClose}/>
+    </>
   )
 }

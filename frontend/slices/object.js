@@ -8,6 +8,7 @@ const objectSlice = createSlice({
   reducers: {
     addOne: entityAdapter.addOne,
     updateOne: entityAdapter.updateOne,
+    removeAll: entityAdapter.removeAll,
   }
 })
 
