@@ -1,5 +1,8 @@
 {
-  "丟丟": "丢丢",
+  "DiuDiu": "丟丟",
 
-  "骰子列表": "骰子列表"
+  "Stats": "統計",
+  "Your rolling times is {{count}}": "你丟了 {{count}} 次",
+  "Clear": "清空",
+  "Close": "關閉"
 }

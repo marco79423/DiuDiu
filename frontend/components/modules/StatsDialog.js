@@ -1,5 +1,6 @@
 import {createUseStyles} from 'react-jss'
 import {Button, Dialog, DialogActions, DialogContent, DialogTitle, Typography} from '@mui/material'
+import {useTranslation} from 'next-i18next'
 
 const useStyles = createUseStyles({
   title: {}
@@ -7,6 +8,7 @@ const useStyles = createUseStyles({
 
 export default function StatsDialog({open, onClose, objectCount, clearObjects}) {
   const classes = useStyles()
+  const {t} = useTranslation()
 
   const onClearButtonClick = () => {
     clearObjects()
@@ -15,13 +17,13 @@ export default function StatsDialog({open, onClose, objectCount, clearObjects}) 
 
   return (
     <Dialog onClose={onClose} open={open}>
-      <DialogTitle className={classes.title}>統計</DialogTitle>
+      <DialogTitle className={classes.title}>{t('Stats')}</DialogTitle>
       <DialogContent dividers>
-        <Typography>你丟了： {objectCount} 次</Typography>
+        <Typography>{t('Your rolling times is {{count}}', {count: objectCount})}</Typography>
       </DialogContent>
       <DialogActions>
-        <Button variant="contained" onClick={onClearButtonClick}>清空</Button>
-        <Button variant="contained" autoFocus onClick={onClose}>確認</Button>
+        <Button variant="contained" onClick={onClearButtonClick}>{t('Clear')}</Button>
+        <Button variant="contained" autoFocus onClick={onClose}>{t('Close')}</Button>
       </DialogActions>
     </Dialog>
   )

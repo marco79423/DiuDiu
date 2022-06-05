@@ -1,10 +1,11 @@
 import React from 'react'
-import getConfig from 'next/config'
 import Head from 'next/head'
+import getConfig from 'next/config'
 import {useRouter} from 'next/router'
 import {CacheProvider} from '@emotion/react'
 import {appWithTranslation, useTranslation} from 'next-i18next'
-import {CssBaseline, StyledEngineProvider} from '@mui/material'
+import {useCanonicalUrl} from '@paji-sdk/next-lib'
+import {StyledEngineProvider} from '@mui/material'
 
 import AppProvider from '../containers/AppProvider'
 import createEmotionCache from '../utils/createEmotionCache'
@@ -12,12 +13,13 @@ import useTracker from '../hooks/useTracker'
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
-const emotionCache = createEmotionCache()
+const clientSideEmotionCache = createEmotionCache()
 
-function App({Component, pageProps}) {
+function App({Component, emotionCache = clientSideEmotionCache, pageProps}) {
   const tracker = useTracker()
   const router = useRouter()
   const {publicRuntimeConfig} = getConfig()
+  const canonicalUrl = useCanonicalUrl(publicRuntimeConfig.hostUrl)
   const {t} = useTranslation()
 
   React.useEffect(() => {
@@ -49,24 +51,24 @@ function App({Component, pageProps}) {
   return (
     <>
       <Head>
-        <title>{t(publicRuntimeConfig.siteName)}</title>
+        <title>{t('DiuDiu')}</title>
 
-        <meta name="application-name" content={t(publicRuntimeConfig.siteName)}/>
-        <meta name="description" content={t('')}/>
+        <meta name="application-name" content={t('DiuDiu')}/>
+        <meta name="description" content={t('DiuDiu is DiuDiu game')}/>
         <meta name="keywords" content="diudiu"/>
 
         <meta name="twitter:card" content="summary"/>
-        <meta name="twitter:url" content="https://diu-diu.com"/>
-        <meta name="twitter:title" content={t(publicRuntimeConfig.siteName)}/>
+        <meta name="twitter:url" content={canonicalUrl}/>
+        <meta name="twitter:title" content={t('DiuDiu')}/>
         <meta name="twitter:description" content={t('')}/>
-        <meta name="twitter:image" content="https://diu-diu.com/logo.jpg"/>
+        <meta name="twitter:image" content={`${canonicalUrl}/logo.jpg`}/>
         <meta name="twitter:creator" content="@marco79423"/>
         <meta property="og:type" content="website"/>
-        <meta property="og:title" content={t(publicRuntimeConfig.siteName)}/>
+        <meta property="og:title" content={t('DiuDiu')}/>
         <meta property="og:description" content={t('')}/>
-        <meta property="og:site_name" content={t(publicRuntimeConfig.siteName)}/>
-        <meta property="og:url" content="https://diu-diu.com"/>
-        <meta property="og:image" content="https://diu-diu.com/logo.jpg"/>
+        <meta property="og:site_name" content={t('DiuDiu')}/>
+        <meta property="og:url" content={canonicalUrl}/>
+        <meta property="og:image" content={`${canonicalUrl}/logo.jpg`}/>
 
         <link rel="icon" href="/favicon.ico"/>
         <link rel="shortcut icon" href="/favicon.ico"/>
@@ -74,16 +76,8 @@ function App({Component, pageProps}) {
         <link rel="icon" type="image/png" sizes="192x192" href="/logo-192x192.png"/>
         <link rel="icon" type="image/png" sizes="512x512" href="/logo-512x512.png"/>
 
-        <link rel="canonical" href="https://diu-diu.com/"/>
-        <link rel="alternate" hrefLang="x-default" href="https://diu-diu.com/en"/>
-        <link rel="alternate" hrefLang="zh-TW" href="https://diu-diu.com/zh-TW/"/>
-        <link rel="alternate" hrefLang="zh-CN" href="https://diu-diu.com/zh-CN/"/>
-
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
-        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+        <link rel="canonical" href={canonicalUrl}/>
       </Head>
-
-      <CssBaseline/>
 
       <CacheProvider value={emotionCache}>
         <StyledEngineProvider injectFirst>

@@ -1,9 +1,10 @@
 import React from 'react'
 import {createUseStyles} from 'react-jss'
 import {useViewportSize} from '@paji-sdk/web'
-import {Fab} from '@mui/material'
+import {CssBaseline, Fab} from '@mui/material'
 
 import Header from '../base/Header'
+import {useTranslation} from 'next-i18next'
 
 
 const useStyles = createUseStyles({
@@ -32,20 +33,26 @@ const useStyles = createUseStyles({
   }
 })
 
-export default function RollingDieLayout({children, onStatsDialogOpen}) {
+export default function RollingDieLayout({children, right, onStatsDialogOpen}) {
+  const {t} = useTranslation()
   const {width, height} = useViewportSize()
   const classes = useStyles({width, height})
 
   return (
-    <div className={classes.root}>
-      <Header/>
-      <div className={classes.body}>
-        {children}
-      </div>
+    <>
+      <CssBaseline/>
 
-      <Fab className={classes.fab} variant="extended" aria-label="丟" onClick={onStatsDialogOpen}>
-        統計
-      </Fab>
-    </div>
+      <div className={classes.root}>
+        <Header right={right}/>
+        <div className={classes.body}>
+          {children}
+        </div>
+
+        <Fab className={classes.fab} variant="extended" aria-label={t('Stats')} onClick={onStatsDialogOpen}>
+          {t('Stats')}
+        </Fab>
+      </div>
+    </>
+
   )
 }

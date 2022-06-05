@@ -4,6 +4,7 @@ import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
 import RollingDieLayout from '../components/layouts/RollingDieLayout'
 import RollingObjectBox from '../containers/RollingObjectBox'
 import StatsDialogContainer from '../containers/StatsDialogContainer'
+import LocaleSelectContainer from '../containers/LocaleSelectContainer'
 
 export const getStaticProps = async ({locale}) => ({
   props: {
@@ -24,7 +25,7 @@ export default function RollingDiePage() {
 
   return (
     <>
-      <RollingDieLayout onStatsDialogOpen={onStatsDialogOpen}>
+      <RollingDieLayout right={<LocaleSelectContainer/>} onStatsDialogOpen={onStatsDialogOpen}>
         <RollingObjectBox/>
       </RollingDieLayout>
 

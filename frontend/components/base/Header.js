@@ -1,10 +1,16 @@
 import React from 'react'
-import {AppBar, Toolbar, Typography} from '@mui/material'
+import {AppBar, Grid, Toolbar, Typography} from '@mui/material'
 import {createUseStyles} from 'react-jss'
 import CasinoIcon from '@mui/icons-material/casino'
+import {useTranslation} from 'next-i18next'
 
 
 const useStyles = createUseStyles({
+  root: {
+    paddingLeft: 16,
+    paddingRight: 16,
+  },
+
   icon: {
     fontSize: '2rem',
     marginRight: 16,
@@ -17,15 +23,21 @@ const useStyles = createUseStyles({
   }
 })
 
-export default function Header() {
+export default function Header({right}) {
   const classes = useStyles()
+  const {t} = useTranslation()
 
   return (
-    <AppBar position="relative">
-      <Toolbar>
-        <CasinoIcon className={classes.icon}/>
-        <Typography className={classes.title} variant="h1" color="inherit" noWrap>丟丟</Typography>
-      </Toolbar>
-    </AppBar>
+    <Grid className={classes.root} container component={AppBar} position="relative" justifyContent="space-between" alignItems="center">
+      <Grid item>
+        <Toolbar>
+          <CasinoIcon className={classes.icon}/>
+          <Typography className={classes.title} variant="h1" color="inherit" noWrap>{t('DiuDiu')}</Typography>
+        </Toolbar>
+      </Grid>
+      <Grid item>
+        {right}
+      </Grid>
+    </Grid>
   )
 }
