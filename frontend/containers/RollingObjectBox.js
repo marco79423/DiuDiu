@@ -5,6 +5,7 @@ import {OrbitControls, PerspectiveCamera} from '@react-three/drei'
 import {Physics} from '@react-three/cannon'
 import {generateId} from '@paji-sdk/utils'
 import {createUseStyles} from 'react-jss'
+import * as Tone from "tone"
 
 import {selectObjectList} from '../selectors'
 import useDeveloperMode from '../hooks/useDeveloperMode'
@@ -42,7 +43,25 @@ export default function RollingObjectBox() {
     }
   }, [developerMode])
 
+  const synthRef = React.useRef()
+  React.useEffect(() => {
+    const filter = new Tone.Filter(1800, 'lowpass').toDestination()
+    synthRef.current = new Tone.NoiseSynth({
+      noise: {
+        type: 'white',
+        playbackRate: 2
+      },
+      envelope: {
+        attack: 0.005,
+        decay: 0.1,
+        sustain: 0.0001,
+        release: 0.1
+      }
+    }).connect(filter)
+  }, [])
+
   const addObject = () => {
+    synthRef.current.triggerAttackRelease('0.01')
     dispatch(objectSlice.actions.addOne({
       id: generateId(),
       rolling: false,
