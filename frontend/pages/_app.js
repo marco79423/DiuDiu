@@ -1,18 +1,22 @@
 import React from 'react'
 import getConfig from 'next/config'
 import Head from 'next/head'
+import {useRouter} from 'next/router'
+import {CacheProvider} from '@emotion/react'
 import {appWithTranslation, useTranslation} from 'next-i18next'
 import {CssBaseline, StyledEngineProvider} from '@mui/material'
 
 import AppProvider from '../containers/AppProvider'
 import createEmotionCache from '../utils/createEmotionCache'
-import {CacheProvider} from '@emotion/react'
+import useTracker from '../hooks/useTracker'
 
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const emotionCache = createEmotionCache()
 
 function App({Component, pageProps}) {
+  const tracker = useTracker()
+  const router = useRouter()
   const {publicRuntimeConfig} = getConfig()
   const {t} = useTranslation()
 
@@ -23,6 +27,24 @@ function App({Component, pageProps}) {
       jssStyles.parentElement.removeChild(jssStyles)
     }
   }, [])
+
+  React.useEffect(() => {
+    // `routeChangeComplete` won't run for the first page load unless the query string is
+    // hydrated later on, so here we log a page view if this is the first render and
+    // there's no query string
+    if (!router.asPath.includes('?')) {
+      tracker.pageView()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  React.useEffect(() => {
+    // Listen for page changes after a navigation or when the query changes
+    router.events.on('routeChangeComplete', tracker.pageView)
+    return () => {
+      router.events.off('routeChangeComplete', tracker.pageView)
+    }
+  }, [tracker.pageView, router.events])
 
   return (
     <>

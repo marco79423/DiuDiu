@@ -1,6 +1,6 @@
 module.exports = {
   siteName: '丟丟',
-  gaTrackingCode: '',
+  gaTrackingCode: 'G-WLYSDS8BW5',
 
   locales: [
     {
