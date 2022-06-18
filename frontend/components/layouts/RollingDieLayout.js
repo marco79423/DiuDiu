@@ -44,9 +44,9 @@ export default function RollingDieLayout({children, right, onStatsDialogOpen}) {
 
       <div className={classes.root}>
         <Header right={right}/>
-        <div className={classes.body}>
+        <main className={classes.body}>
           {children}
-        </div>
+        </main>
 
         <Fab className={classes.fab} variant="extended" aria-label={t('Stats')} onClick={onStatsDialogOpen}>
           {t('Stats')}
