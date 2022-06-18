@@ -28,21 +28,23 @@ export default class MyDocument extends Document {
 
     const initialProps = await Document.getInitialProps(ctx)
     const emotionStyles = extractCriticalToChunks(initialProps.html)
+    const emotionStyleTags = emotionStyles.styles.map((style) => (
+      <style
+        data-emotion={`${style.key} ${style.ids.join(' ')}`}
+        key={style.key}
+
+        // eslint-disable-next-line react/no-danger
+        dangerouslySetInnerHTML={{ __html: style.css }}
+      />
+    ));
 
     return {
       ...initialProps,
       styles: (
         <>
           {initialProps.styles}
-          {emotionStyles.styles.map((style) => (
-            <style
-              data-emotion={`${style.key} ${style.ids.join(' ')}`}
-              key={style.key}
-              // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={{__html: style.css}}
-            />
-          ))}
-          <style id="server-side-styles">{registry.toString()}</style>
+          {emotionStyleTags}
+          <style id="jss-server-side">{registry.toString()}</style>
         </>
       ),
     }
