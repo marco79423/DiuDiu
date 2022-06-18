@@ -7,7 +7,6 @@ import {createUseStyles} from 'react-jss'
 
 import useDeveloperMode from '../../hooks/useDeveloperMode'
 import useComponentSize from '../../hooks/useComponentSize'
-import useIsClientSideRendering from '../../hooks/useIsClientSideRendering'
 import Floor from './Floor'
 import Barrier from './Barrier'
 import Object from './Object'
@@ -28,7 +27,6 @@ export default function RollingObjectBox({objectList, addObject, updateObject}) 
   const ref = React.useRef()
   const classes = useStyles()
   const developerMode = useDeveloperMode()
-  const isClientSideRendering = useIsClientSideRendering()
   const {width, height, ready} = useComponentSize(ref)
 
   const onBoxClick = () => {
@@ -40,9 +38,8 @@ export default function RollingObjectBox({objectList, addObject, updateObject}) 
   return (
     <div ref={ref} className={classes.root} onClick={onBoxClick}>
       {
-        (isClientSideRendering && ready) ? (
-          <Canvas className={classes.canvas}>
-
+        <Canvas className={classes.canvas}>
+          <React.Suspense fallback={null}>
             <Physics gravity={[0, 0, -10]} defaultContactMaterial={{friction: 0.01, restitution: 0.5}}>
               <PerspectiveCamera makeDefault position={[0, 0, 10]}/>
 
@@ -88,8 +85,8 @@ export default function RollingObjectBox({objectList, addObject, updateObject}) 
                 ))
               }
             </Physics>
-          </Canvas>
-        ) : null
+          </React.Suspense>
+        </Canvas>
       }
     </div>
   )
