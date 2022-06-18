@@ -1,8 +1,8 @@
 import React from 'react'
+import dynamic from 'next/dynamic'
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
 
 import RollingDieLayout from '../components/layouts/RollingDieLayout'
-import RollingObjectBox from '../containers/RollingObjectBox'
 import StatsDialogContainer from '../containers/StatsDialogContainer'
 import LocaleSelectContainer from '../containers/LocaleSelectContainer'
 
@@ -11,6 +11,8 @@ export const getStaticProps = async ({locale}) => ({
     ...await serverSideTranslations(locale, ['common']),
   }
 })
+
+const RollingObjectBoxContainer = dynamic(() => import('../containers/RollingObjectBoxContainer'), { ssr: false })
 
 export default function RollingDiePage() {
   const [statsDialogOpen, setStatsDialogOpen] = React.useState(false)
@@ -26,7 +28,7 @@ export default function RollingDiePage() {
   return (
     <>
       <RollingDieLayout right={<LocaleSelectContainer/>} onStatsDialogOpen={onStatsDialogOpen}>
-        <RollingObjectBox/>
+        <RollingObjectBoxContainer/>
       </RollingDieLayout>
 
       <StatsDialogContainer open={statsDialogOpen} onClose={onStatsDialogClose}/>
